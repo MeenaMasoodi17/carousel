@@ -13,7 +13,6 @@ carousel.items = carousel.slide.children;
 
 window.console.log(carousel);
 
-
 carousel.currentItem = 0;
 
 (function(carousel){
@@ -28,12 +27,15 @@ function carouselNext(carousel) {
 	carousel.currentItem++;
 	// If we increased it too much
 	if(carousel.currentItem >= carousel.items.length) {
+        carousel.slide.style.transition = 'none';
 		// set it back to the first item
-		carousel.currentItem = 0;
+        carousel.currentItem = 0;
+        // carousel.slide.style.transition = 'margin 0.5s ease-in-out';
+        
 	}
 
 	// set style for the current item
-	displayCarouselItem(carousel);
+	displayCurrentItem(carousel);
 }
 
 function carouselPrev(carousel) {
@@ -41,19 +43,21 @@ function carouselPrev(carousel) {
 	carousel.currentItem--;
 	// If we're below zero, we've gone too far
 	if(carousel.currentItem <= -1) {
+        carousel.slide.style.transition = 'none';
 		// Set it to the last item
 		carousel.currentItem = carousel.items.length - 1;
 	}
 
 	// set style for the current item
-	displayCarouselItem(carousel);
+	displayCurrentItem(carousel);
 }
 
-function displayCarouselItem(carousel) {
+function displayCurrentItem(carousel) {
 	// Reset the timer
 	startCarouselTimeout(carousel);
 	// set margin-left CSS property
 	carousel.slide.style.marginLeft = -1 * (carousel.currentItem * 304);
+    carousel.slide.style.transition = 'margin 0.5s ease-in-out';
 }
 
 function startCarouselTimeout(carousel) {
